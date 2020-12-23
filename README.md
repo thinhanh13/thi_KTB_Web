@@ -1,4 +1,5 @@
 # thi_KTB_Web
-Họ và tên : Bùi Trần Anh Thịnh
-Lớp: CTT13CD3A
-Thi kết thúc môn:Thiết kế Website . Thời gian : 23/12/2020
+1. Họ và tên : Bùi Trần Anh Thịnh
+2. Lớp: CTT13CD3A
+3. Thi kết thúc môn:Thiết kế Website . 
+4. Thời gian : 23/12/2020
