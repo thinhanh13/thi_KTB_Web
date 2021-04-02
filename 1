@@ -1,0 +1,175 @@
+CREATE DATABASE QLBH
+-----------------------------------------------------
+-----------------------------------------------------
+---------------------------------------------USE QLBH
+-- KHACHANG
+CREATE TABLE KHACHHANG(
+	MAKH	char(4) not null,	
+	HOTEN	varchar(40),
+	DCHI	varchar(50),
+	SODT	varchar(20),
+	NGSINH	smalldatetime,
+	NGDK	smalldatetime,
+	DOANHSO	money,
+	constraint pk_kh primary key(MAKH)
+)
+---------------------------------------------
+-- NHANVIEN
+CREATE TABLE NHANVIEN(
+	MANV	char(4) not null,	
+	HOTEN	varchar(40),
+	SODT	varchar(20),
+	NGVL	smalldatetime	
+	constraint pk_nv primary key(MANV)
+)
+---------------------------------------------
+-- mathang
+CREATE TABLE MATHANG(
+	MASP	char(4) not null,
+	TENSP	varchar(40),
+	DVT	varchar(20),
+	NUOCSX	varchar(40),
+	GIA	money,
+	constraint pk_sp primary key(MASP)	
+)
+---------------------------------------------
+-- HOADON
+CREATE TABLE HOADON(
+	SOHD	int not null,
+	NGHD 	smalldatetime,
+	MAKH 	char(4),
+	MANV 	char(4),
+	TONGTIEN	money,
+	constraint pk_hd primary key(SOHD)
+)
+---------------------------------------------
+-- CTHD
+   CREATE TABLE CTHD(
+	SOHD	int,
+	MASP	char(4),
+	SL	int,
+	constraint pk_cthd primary key(SOHD,MASP)
+)
+
+-- Khoa ngoai cho bang HOADON
+ALTER TABLE HOADON ADD CONSTRAINT fk01_HD FOREIGN KEY(MAKH) REFERENCES KHACHHANG(MAKH)
+ALTER TABLE HOADON ADD CONSTRAINT fk02_HD FOREIGN KEY(MANV) REFERENCES NHANVIEN(MANV)
+-- Khoa ngoai cho bang CTHD
+ALTER TABLE CTHD ADD CONSTRAINT fk01_CTHD FOREIGN KEY(SOHD) REFERENCES HOADON(SOHD)
+ALTER TABLE CTHD ADD CONSTRAINT fk02_CTHD FOREIGN KEY(MASP) REFERENCES SANPHAM(MASP)
+-----------------------------------------------------
+-----------------------------------------------------
+set dateformat dmy
+-------------------------------
+-- KHACHHANG
+insert into khachhang values('KH01','Nguyen Van A','731 Tran Hung Dao, Q5, TpHCM','8823451','22/10/1960','22/07/2006',13060000)
+insert into khachhang values('KH02','Tran Ngoc Han','23/5 Nguyen Trai, Q5, TpHCM','908256478','03/04/1974','30/07/2006',280000)
+insert into khachhang values('KH03','Tran Ngoc Linh','45 Nguyen Canh Chan, Q1, TpHCM','938776266','12/06/1980','08/05/2006',3860000)
+insert into khachhang values('KH04','Tran Minh Long','50/34 Le Dai Hanh, Q10, TpHCM','917325476','09/03/1965','10/02/2006',250000)
+insert into khachhang values('KH05','Le Nhat Minh','34 Truong Dinh, Q3, TpHCM','8246108','10/03/1950','28/10/2006',21000)
+insert into khachhang values('KH06','Le Hoai Thuong','227 Nguyen Van Cu, Q5, TpHCM','8631738','31/12/1981','24/11/2006',915000)
+insert into khachhang values('KH07','Nguyen Van Tam','32/3 Tran Binh Trong, Q5, TpHCM','916783565','06/04/1971','12/01/2006',12500)
+insert into khachhang values('KH08','Phan Thi Thanh','45/2 An Duong Vuong, Q5, TpHCM','938435756','10/01/1971','13/12/2006',365000)
+insert into khachhang values('KH09','Le Ha Vinh','873 Le Hong Phong, Q5, TpHCM','8654763','03/09/1979','14/01/2007',70000)
+insert into khachhang values('KH10','Ha Duy Lap','34/34B Nguyen Trai, Q1, TpHCM','8768904','02/05/1983','16/01/2007',67500)
+
+-------------------------------
+-- NHANVIEN
+insert into nhanvien values('NV01','Nguyen Nhu Nhut','927345678','13/04/2006')
+insert into nhanvien values('NV02','Le Thi Phi Yen','987567390','21/04/2006')
+insert into nhanvien values('NV03','Nguyen Van B','997047382','27/04/2006')
+insert into nhanvien values('NV04','Ngo Thanh Tuan','913758498','24/06/2006')
+insert into nhanvien values('NV05','Nguyen Thi Truc Thanh','918590387','20/07/2006')
+
+-------------------------------
+-- SANPHAM
+insert into mathang values ('M01',Mi Hai San','phan','50000')
+insert into mathang values ('M02',Mi Lau Thai','phan','50000')
+insert into mathang values ('M03',Mi Bo','phan','50000')
+insert into mathang values ('M04',Mi Ca','phan','50000')
+insert into mathang values ('M05',Mi Ga','phan','50000')
+insert into mathang values ('M06',Mi Xao Ga','phan','45000')
+insert into mathang values ('M07',Com tron han quoc','phan','50000')
+insert into mathang values ('M08',Kim Bap','phan','35000')
+insert into mathang values ('M09',Xuc xich pho mai','phan','25000')
+insert into mathang values ('M10',Takoyaki','phan','35000')
+insert into mathang values ('M11','Ca vien chien','phan','20000')
+insert into mathang values ('M12','Xuc xich loc xoay','phan','20000')
+
+
+-------------------------------
+-- HOADON
+insert into hoadon values(1001,'23/07/2020','KH01','NV01',320000)
+insert into hoadon values(1002,'12/08/2020','KH01','NV02',840000)
+insert into hoadon values(1003,'23/08/2020','KH02','NV01',100000)
+insert into hoadon values(1004,'01/09/2020','KH02','NV01',180000)
+insert into hoadon values(1005,'20/10/2020','KH01','NV02',3800000)
+insert into hoadon values(1006,'16/10/2020','KH01','NV03',2430000)
+insert into hoadon values(1007,'28/10/2020','KH03','NV03',510000)
+insert into hoadon values(1008,'28/10/2020','KH01','NV03',440000)
+insert into hoadon values(1009,'28/10/2020','KH03','NV04',200000)
+insert into hoadon values(1010,'01/11/2020','KH01','NV01',5200000)
+insert into hoadon values(1011,'04/11/2020','KH04','NV03',250000)
+insert into hoadon values(1012,'30/11/2020','KH05','NV03',21000)
+insert into hoadon values(1013,'12/12/2020','KH06','NV01',5000)
+insert into hoadon values(1014,'31/12/2020','KH03','NV02',3150000)
+insert into hoadon values(1015,'01/01/2020','KH06','NV01',910000)
+insert into hoadon values(1016,'01/01/2020','KH07','NV02',12500)
+insert into hoadon values(1017,'02/01/2020','KH08','NV03',35000)
+insert into hoadon values(1018,'13/01/2020','KH08','NV03',330000)
+insert into hoadon values(1019,'13/01/2020','KH01','NV03',30000)
+insert into hoadon values(1020,'14/01/2020','KH09','NV04',70000)
+insert into hoadon values(1021,'16/01/2020','KH10','NV03',67500)
+insert into hoadon values(1022,'16/01/2020',Null,'NV03',7000)
+insert into hoadon values(1023,'17/01/2020',Null,'NV01',330000)
+
+-------------------------------
+-- CTHD
+insert into cthd values(1001,'M01',10)
+insert into cthd values(1001,'M03',5)
+insert into cthd values(1001,'M04',5)
+insert into cthd values(1001,'M05',10)
+insert into cthd values(1001,'M11',10)
+insert into cthd values(1002,'M01',20)
+insert into cthd values(1002,'M12',20)
+insert into cthd values(1002,'M10',20)
+insert into cthd values(1003,'M05',10)
+insert into cthd values(1004,'M09',20)
+insert into cthd values(1004,'M03',10)
+insert into cthd values(1004,'M05',10)
+insert into cthd values(1004,'M01',10)
+insert into cthd values(1005,'M12',2)
+insert into cthd values(1005,'M03',3)
+insert into cthd values(1006,'M10',2)
+insert into cthd values(1006,'M11',3)
+insert into cthd values(1006,'M12',1)
+insert into cthd values(1007,'M08',1)
+insert into cthd values(1008,'M07',8)
+insert into cthd values(1009,'M03',1)
+insert into cthd values(1010,'M05',5)
+insert into cthd values(1010,'M01',5)
+insert into cthd values(1010,'M02',1)
+insert into cthd values(1010,'M03',5)
+insert into cthd values(1010,'M11',10)
+insert into cthd values(1011,'M12',5)
+insert into cthd values(1012,'M01',3)
+insert into cthd values(1013,'M12',5)
+insert into cthd values(1014,'M08',8)
+insert into cthd values(1014,'M07',10)
+insert into cthd values(1014,'M06',6)
+insert into cthd values(1014,'M05',5)
+insert into cthd values(1015,'M04',3)
+insert into cthd values(1015,'M03',7)
+insert into cthd values(1016,'M02',5)
+insert into cthd values(1017,'M07',1)
+insert into cthd values(1017,'M05',1)
+insert into cthd values(1017,'M06',5)
+insert into cthd values(1018,'M09',6)
+insert into cthd values(1019,'M01',1)
+insert into cthd values(1019,'M03',2)
+insert into cthd values(1020,'M03',10)
+insert into cthd values(1021,'M04',5)
+insert into cthd values(1021,'M06',7)
+insert into cthd values(1021,'M08',10)
+insert into cthd values(1022,'M09',1)
+insert into cthd values(1023,'M11',6)
